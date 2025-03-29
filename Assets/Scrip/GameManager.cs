@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameWinScreen;
     public GameObject levelScreen;
     public TextMeshProUGUI timerText;
+    public Button[] levelButtons;
+    private static int unlockedLevel = 0;
 
     [Header("Health System")]
     public Image[] hearts;         
@@ -44,13 +46,11 @@ public class GameManager : MonoBehaviour
             gameWinScreen.SetActive(false);
             levelScreen.SetActive(false);
             titleScreen.SetActive(true);
-        }
-        else
-        {
-            if (titleScreen != null) titleScreen.SetActive(false);
-            if (levelScreen != null) levelScreen.SetActive(false);
-            if (gameOverScreen != null) gameOverScreen.SetActive(false);
-            if (gameWinScreen != null) gameWinScreen.SetActive(false);
+
+            for (int i = 0; i < levelButtons.Length; i++)
+            {
+                levelButtons[i].interactable = (i <= unlockedLevel);
+            }
         }
     }
 
@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     public void StartGame()
     {
@@ -139,6 +138,18 @@ public class GameManager : MonoBehaviour
         if (remainingBuildings <= 0)
         {
             gameWinScreen.SetActive(true);
+
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName.StartsWith("Level"))
+            {
+                string numberPart = sceneName.Replace("Level", "");
+                if (int.TryParse(numberPart, out int currentLevel))
+                {
+                    int nextLevel = currentLevel + 1;
+
+                    unlockedLevel = nextLevel;
+                }
+            }
         }
     }
 
