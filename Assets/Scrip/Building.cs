@@ -11,7 +11,10 @@ public class Building : MonoBehaviour
 
     private Rigidbody rb;
     private Renderer rend;
-    
+
+    public bool canWarpOnGround = false;
+    public Transform warpTarget;
+
     private int health;
     public int point;
     public ParticleSystem explosionParticle;
@@ -24,7 +27,7 @@ public class Building : MonoBehaviour
         rend = GetComponent<Renderer>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if (type != BuildingType.Explosive)
+        if (type != BuildingType.Explosive && !canWarpOnGround)
         {
             gameManager.RegisterBuilding();
         }
@@ -35,6 +38,16 @@ public class Building : MonoBehaviour
             case BuildingType.Brick: health = 2; break;
             case BuildingType.Metal: health = 3; break;
             case BuildingType.Explosive: health = 1; break;
+        }
+    }
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (canWarpOnGround && warpTarget != null && collision.collider.CompareTag("Ground"))
+        {
+            transform.position = warpTarget.position;
+            canWarpOnGround = false;
         }
     }
 
@@ -54,6 +67,18 @@ public class Building : MonoBehaviour
         }
 
         if (type == BuildingType.Explosive)
+        {
+            if (explosionParticle != null)
+            {
+                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            }
+
+            gameManager.GameOver();
+            Destroy(gameObject);
+            return;
+        }
+
+        if (canWarpOnGround)
         {
             if (explosionParticle != null)
             {

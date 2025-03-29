@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    private bool hasHitGround = false;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Destroyable"))
@@ -18,8 +20,10 @@ public class Rock : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
-        else if (other.CompareTag("Ground"))
+        else if (other.CompareTag("Ground") && !hasHitGround)
         {
+            hasHitGround = true;
+
             GameManager gm = FindObjectOfType<GameManager>();
             if (gm != null)
             {
