@@ -23,10 +23,12 @@ public class RockLauncher : MonoBehaviour
 
     private float chargeTime = 0f;
     public Slider chargeSlider;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         currentAmmo = maxAmmo;
         UpdateAmmoUI();
     }
@@ -34,6 +36,9 @@ public class RockLauncher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager == null || !gameManager.IsGameActive())
+            return;
+
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 newPos = transform.position + Vector3.up * verticalInput * moveSpeed * Time.deltaTime;
 

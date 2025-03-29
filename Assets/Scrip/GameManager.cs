@@ -89,8 +89,21 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (!isGameActive) return;
+
         isGameActive = false;
+        StartCoroutine(ShowGameOverDelayed());
+    }
+
+    IEnumerator ShowGameOverDelayed()
+    {
+        yield return new WaitForSeconds(0.5f);
         gameOverScreen.SetActive(true);
+    }
+
+    public bool IsGameActive()
+    {
+        return isGameActive;
     }
 
     public void Restart()
