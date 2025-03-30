@@ -64,10 +64,14 @@ public class RockLauncher : MonoBehaviour
                 GameObject rock = Instantiate(rockPrefab, launchPoint.position, Quaternion.identity);
                 Rigidbody rb = rock.GetComponent<Rigidbody>();
                 rb.AddForce(launchPoint.forward * launchForce);
-
                 currentAmmo--;
                 UpdateAmmoUI();
             }
+            else
+            {
+                gameManager.LoseStarAndRestartLevel();
+            }
+
             chargeTime = 0f;
         }
 
@@ -82,7 +86,7 @@ public class RockLauncher : MonoBehaviour
     {
         if (ammoText != null)
         {
-            ammoText.text = "Rock " + currentAmmo;
+            ammoText.text = "" + currentAmmo;
         }
     }
 }

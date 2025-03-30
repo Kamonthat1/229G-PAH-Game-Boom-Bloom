@@ -27,7 +27,7 @@ public class Rock : MonoBehaviour
             GameManager gm = FindObjectOfType<GameManager>();
             if (gm != null)
             {
-                gm.LoseHealth();
+                gm.LoseStarAndRestartLevel();
             }
         }
 

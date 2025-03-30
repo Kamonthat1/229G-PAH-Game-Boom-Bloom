@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,6 +53,18 @@ public class Building : MonoBehaviour
 
     public void TakeHit()
     {
+        if (type == BuildingType.Explosive || canWarpOnGround)
+        {
+            if (explosionParticle != null)
+            {
+                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            }
+
+            gameManager.LoseStarAndRestartLevel();
+            Destroy(gameObject);
+            return;
+        }
+
         health--;
 
         if (type == BuildingType.Brick && brickMaterials.Length > 0)
@@ -64,30 +76,6 @@ public class Building : MonoBehaviour
         {
             int index = Mathf.Clamp(metalMaterials.Length - health, 0, metalMaterials.Length - 1);
             rend.material = metalMaterials[index];
-        }
-
-        if (type == BuildingType.Explosive)
-        {
-            if (explosionParticle != null)
-            {
-                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            }
-
-            gameManager.GameOver();
-            Destroy(gameObject);
-            return;
-        }
-
-        if (canWarpOnGround)
-        {
-            if (explosionParticle != null)
-            {
-                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            }
-
-            gameManager.GameOver();
-            Destroy(gameObject);
-            return;
         }
 
         if (health <= 0)
@@ -107,6 +95,4 @@ public class Building : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
 }
