@@ -5,9 +5,15 @@ using UnityEngine;
 public class Rock : MonoBehaviour
 {
     private bool hasHitGround = false;
+    public ParticleSystem explosionEffect;
 
     void OnTriggerEnter(Collider other)
     {
+        if (explosionEffect != null)
+        {
+            ParticleSystem explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
+
         if (other.CompareTag("Destroyable"))
         {
             Building building = other.GetComponent<Building>();

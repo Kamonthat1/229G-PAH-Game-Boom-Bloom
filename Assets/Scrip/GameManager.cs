@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = score.ToString();
         timer = timeLimit;
-        totalStars = sharedStars;
+        totalStars = 3;
         UpdateStarUI();
 
         string currentScene = SceneManager.GetActiveScene().name;
@@ -173,7 +173,6 @@ public class GameManager : MonoBehaviour
         {
             gameWinScreen.SetActive(true);
             timerScreen.SetActive(false);
-            GainStarAfterSuccess();
 
             string sceneName = SceneManager.GetActiveScene().name;
             if (sceneName.StartsWith("Level"))
@@ -207,13 +206,6 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
-    }
-
-    public void GainStarAfterSuccess()
-    {
-        totalStars = Mathf.Min(starImages.Length, totalStars + 1);
-        sharedStars = totalStars;
-        UpdateStarUI();
     }
 
     public void PauseGame()

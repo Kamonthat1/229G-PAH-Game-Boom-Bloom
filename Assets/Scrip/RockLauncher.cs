@@ -13,9 +13,9 @@ public class RockLauncher : MonoBehaviour
     public float chargeSpeed = 100f;
 
     [Header("Movement Settings")]
-    public float moveSpeed = 3f;   // ความเร็วการเคลื่อนที่
-    public float minY = 0f;        // ขอบเขตล่าง
-    public float maxY = 5f;        // ขอบเขตบน
+    public float moveSpeed = 3f;   
+    public float minY = 0f;       
+    public float maxY = 5f;       
 
     public int maxAmmo = 5;
     private int currentAmmo;
