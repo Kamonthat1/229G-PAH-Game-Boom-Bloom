@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
             levelScreen.SetActive(false);
             pauseMenuUI.SetActive(false);
             confirmPanel.SetActive(false);
+            timerScreen.SetActive(true);
             titleScreen.SetActive(true);
 
             for (int i = 0; i < levelButtons.Length; i++)
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
         if (!isGameActive) return;
 
         isGameActive = false;
+        timerScreen.SetActive(false);
         StartCoroutine(ShowGameOverDelayed());
     }
 
@@ -130,10 +132,8 @@ public class GameManager : MonoBehaviour
         
     public void Restart()
     {
-        sharedStars = 3;         
-        score = 0;               
-        unlockedLevel = 0;      
-        SceneManager.LoadScene("MainMenu");
+        var activeScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(activeScene.name);
         Time.timeScale = 1f;
     }
 
@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
         if (remainingBuildings <= 0)
         {
             gameWinScreen.SetActive(true);
+            timerScreen.SetActive(false);
             GainStarAfterSuccess();
 
             string sceneName = SceneManager.GetActiveScene().name;
@@ -201,7 +202,6 @@ public class GameManager : MonoBehaviour
         totalStars = Mathf.Max(0, totalStars - 1);
         sharedStars = totalStars;
         UpdateStarUI();
-        Debug.Log("Total Stars: " + totalStars);
 
         if (totalStars <= 0)
         {
