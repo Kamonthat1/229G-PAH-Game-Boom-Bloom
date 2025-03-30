@@ -182,10 +182,25 @@ public class GameManager : MonoBehaviour
                 {
                     int nextLevel = currentLevel + 1;
 
-                    unlockedLevel = nextLevel;
+                    int finalLevel = 5;
+
+                    if (nextLevel > finalLevel)
+                    {
+                        StartCoroutine(LoadCreditScene());
+                    }
+                    else
+                    {
+                        unlockedLevel = nextLevel;
+                    }
                 }
             }
         }
+    }
+
+    IEnumerator LoadCreditScene()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Credit");
     }
 
     void UpdateStarUI()
