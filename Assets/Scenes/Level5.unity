@@ -3689,7 +3689,7 @@ MonoBehaviour:
   - prefab: {fileID: 5714873654877453372, guid: b87ffc9f4dffd8d4094e8b1105f350aa, type: 3}
     type: 3
     count: 10
-    canWarp: 0
+    canWarp: 1
     warpTarget: {fileID: 0}
   spawnInterval: 0.5
 --- !u!4 &476795242
@@ -5632,9 +5632,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 476795242}
   - {fileID: 256170374}
   - {fileID: 1168644219}
-  - {fileID: 476795242}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
