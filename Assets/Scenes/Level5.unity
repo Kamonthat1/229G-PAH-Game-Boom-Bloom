@@ -3690,7 +3690,7 @@ MonoBehaviour:
     type: 3
     count: 10
     canWarp: 1
-    warpTarget: {fileID: 0}
+    warpTarget: {fileID: 256170374}
   spawnInterval: 0.5
 --- !u!4 &476795242
 Transform:
