@@ -63,7 +63,13 @@ public class RockLauncher : MonoBehaviour
             {
                 GameObject rock = Instantiate(rockPrefab, launchPoint.position, Quaternion.identity);
                 Rigidbody rb = rock.GetComponent<Rigidbody>();
-                rb.AddForce(launchPoint.forward * launchForce);
+
+                float mass = rb.mass;
+                float acceleration = chargeTime * chargeSpeed;
+                Vector3 force = launchPoint.forward * (mass * acceleration);
+
+                rb.AddForce(force);
+
                 currentAmmo--;
                 UpdateAmmoUI();
             }

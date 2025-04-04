@@ -99,8 +99,8 @@ MonoBehaviour:
   rockPrefab: {fileID: 0}
   launchPoint: {fileID: 0}
   launchForce: 0
-  maxLaunchForce: 4000
-  chargeSpeed: 2000
+  maxLaunchForce: 100
+  chargeSpeed: 70
   moveSpeed: 3
   minY: 0
   maxY: 5
